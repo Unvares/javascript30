@@ -38,9 +38,11 @@
     <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500" />
 
     <style>
-      /*
-      misc styles, nothing to do with CSS variables
-    */
+      :root {
+        --blur: 10px;
+        --spacing: 10px;
+        --base: #ffc600;
+      }
 
       body {
         text-align: center;
@@ -58,8 +60,34 @@
       input {
         width: 100px;
       }
+
+      img {
+        filter: blur(var(--blur));
+        padding: var(--spacing);
+        background-color: var(--base);
+      }
+
+      .hl {
+        color: var(--base);
+      }
     </style>
 
-    <script></script>
+    <script>
+      const controls = document.querySelector('.controls');
+      controls.addEventListener('change', handleInputChange);
+      controls.addEventListener('mousemove', handleInputChange);
+
+      function handleInputChange({ target, srcElement }) {
+        const { value } = srcElement;
+        const { id } = target;
+        const { sizing } = target.dataset;
+
+        setCSSVariable({ name: id, value, sizing });
+      }
+
+      function setCSSVariable({ name, value, sizing = '' }) {
+        document.documentElement.style.setProperty(`--${name}`, value + sizing);
+      }
+    </script>
   </body>
 </html>
