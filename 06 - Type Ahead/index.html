@@ -15,8 +15,48 @@
       </ul>
     </form>
     <script>
+      const search = document.querySelector('.search');
+      search.addEventListener('input', handleInput);
+
       const endpoint =
         'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+      const cities = [];
+
+      fetch(endpoint)
+        .then((result) => result.json())
+        .then((result) => cities.push(...result));
+
+      function handleInput({ target }) {
+        const { value } = target;
+
+        const citiesToShow = cities.filter(
+          ({ city, state }) =>
+            city.toLowerCase().indexOf(value.toLowerCase()) > -1 ||
+            state.toLowerCase().indexOf(value.toLowerCase()) > -1
+        );
+
+        updateList(citiesToShow);
+      }
+
+      function updateList(elements) {
+        const list = document.querySelector('.suggestions');
+        list.innerHTML = '';
+
+        elements.forEach(({ city, state, population }) => {
+          const entry = document.createElement('li');
+
+          const nameElement = document.createElement('span');
+          nameElement.innerText = `${city}, ${state}`;
+          entry.append(nameElement);
+
+          const populationElement = document.createElement('span');
+          populationElement.innerText = population;
+          populationElement.classList.add('population');
+          entry.append(populationElement);
+
+          list.append(entry);
+        });
+      }
     </script>
   </body>
 </html>
