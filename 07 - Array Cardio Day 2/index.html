@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Array Cardio 💪💪</title>
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
+    <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+    <script>
+      const people = [
+        { name: 'Wes', year: 1988 },
+        { name: 'Kait', year: 1986 },
+        { name: 'Irv', year: 1970 },
+        { name: 'Lux', year: 2015 },
+      ];
+
+      const comments = [
+        { text: 'Love this!', id: 523423 },
+        { text: 'Super good', id: 823423 },
+        { text: 'You are the best', id: 2039842 },
+        { text: 'Ramen is my fav food ever', id: 123523 },
+        { text: 'Nice Nice Nice!', id: 542328 },
+      ];
+
+      console.log(
+        "Here you'll see results of several checks related to the following array of objects:"
+      );
+      console.log(people);
+
+      console.log('Is at least one person 19 or older?');
+      const isSomeoneOlderThan19 = people.some(({ year }) => year <= 2004);
+      console.log(isSomeoneOlderThan19 ? 'Yes' : 'No');
+
+      console.log('Is everyone 19 or older?');
+      const isEveryoneOlderThan19 = people.every(({ year }) => year <= 2004);
+      console.log(isEveryoneOlderThan19 ? 'Yes' : 'No');
+
+      console.log('');
+
+      console.log(
+        "Here you'll see results of several check related to the following array of objects:"
+      );
+      console.log(comments);
+
+      console.log("Here's comment with 823423 id:");
+      console.log(comments.find(({ id }) => id == 823423));
+
+      const index = comments.findIndex(({ id }) => id == 823423);
+      const newArray = [
+        ...comments.slice(0, index),
+        ...comments.slice(index + 1),
+      ];
+      console.log("Here's updated array without 823423 comment:");
+      console.log(newArray);
+    </script>
+  </body>
+</html>
